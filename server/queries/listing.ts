@@ -16,7 +16,8 @@ const createListing = async (
   }
 }
 
-const getAll = async (): Promise<ListingOutput[]> => await Listing.findAll()
+const getAll = async (): Promise<ListingOutput[]> =>
+  await Listing.findAll({ limit: 100, offset: 0 })
 
 const getBySlug = async (
   slug: string

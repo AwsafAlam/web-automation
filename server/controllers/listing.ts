@@ -15,7 +15,7 @@ const add = async (req: Request, res: Response): Promise<void> => {
 
     if (!userBySlug) break
 
-    slug = generateSlug(data.username) + generateRandomText('-', 3)
+    slug = generateSlug(data.name) + generateRandomText('-', 3)
   }
 
   const response = await listingQuery.createListing({

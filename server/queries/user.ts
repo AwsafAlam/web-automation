@@ -16,8 +16,11 @@ const createUser = async (
   }
 }
 
-const getAll = async (): Promise<UserOutput[]> => {
-  const users = await User.findAll()
+const getAll = async (page?: number, limit?: number): Promise<UserOutput[]> => {
+  const users = await User.findAll({
+    limit,
+    offset: page ? page * (limit || 3) : 0,
+  })
 
   return users
 }
