@@ -2,8 +2,6 @@ import { createLogger, format, transports } from 'winston'
 const { combine, timestamp, prettyPrint, colorize, json } = format
 import 'winston-daily-rotate-file'
 
-// const config = require('../settings/config');
-
 /**
 	level - Level of messages to log.
   filename - The file to be used to write log data to.
@@ -13,39 +11,6 @@ import 'winston-daily-rotate-file'
   maxFiles - Limit the number of files created when the size of the logfile is exceeded.
   colorize - Colorize the output. This can be helpful when looking at console logs.
 */
-
-// var options = {
-// 	file: {
-// 		level: process.env.DEPLOY === 'dev' ? 'debug' : 'info',
-// 		filename: 'log/%DATE%-logs.log',
-// 		// filename: 'log/logs.log',
-// 		datePattern: 'YYYY-MM-DD',
-// 		zippedArchive: true,
-// 		timestamp: true,
-// 		handleExceptions: true,
-// 		humanReadableUnhandledException: true,
-// 		prettyPrint: true,
-// 		json: true,
-// 		maxsize: 5242880, // 5MB
-// 		maxFiles: 5,
-// 		colorize: true,
-// 	},
-// 	console: {
-// 		level: 'debug',
-// 		handleExceptions: true,
-// 		json: false,
-// 		colorize: true,
-// 	},
-// 	mail: {
-// 		level: 'error',
-// 		to: 'developers_team_email',
-// 		from: 'sender_email',
-// 		subject: 'An Error Occured On Server. Please Check IT ASAP',
-// 		host: 'email_host',
-// 		username: 'username',
-// 		password: 'password',
-// 	},
-// };
 
 const logger = createLogger({
   transports: [

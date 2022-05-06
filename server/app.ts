@@ -31,9 +31,7 @@ app.use('/', router)
 
 // catch all
 app.all('*', async (_, res: Response) => {
-  res
-    .status(501)
-    .send({ message: 'This user-service route is not implemented yet' })
+  res.status(501).send({ message: 'This route is not implemented yet' })
 })
 
 export default app

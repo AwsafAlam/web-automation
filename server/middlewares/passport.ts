@@ -69,6 +69,20 @@ passport.use(
   )
 )
 
+passport.use(
+  'super-admin',
+  new JwtStrategy(
+    options,
+    async (payload: JwtPayload, done: VerifiedCallback) => {
+      // if (payload.type === Role.Admin) {
+      await checkToken(payload, done)
+      // } else {
+      //   done(null, false)
+      // }
+    }
+  )
+)
+
 passport.serializeUser(function (user, done) {
   done(null, user)
 })
