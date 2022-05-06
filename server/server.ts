@@ -3,6 +3,9 @@ import config from 'config'
 import './middlewares/passport'
 import { errorHandler } from './middlewares'
 import app from './app'
+import dbInit from 'config/init'
+
+void dbInit()
 
 app.use(errorHandler)
 

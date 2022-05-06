@@ -25,6 +25,12 @@
     "@typescript-eslint/no-misused-promises": [
       "error",
       { "checksVoidReturn": false }
+    ],
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        "allowSingleExtends": true
+      }
     ]
   }
 }
