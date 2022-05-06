@@ -1,35 +1,32 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from 'config/db'
-import { ListingInput } from './Listing'
+import { Roles } from 'lib/constants'
+// import { ListingInput } from './Listing'
 
-interface UserMetadata {
-  cookingTime: string | null
-}
+export type RoleType = 1111 | 9999 | 8081
 
-interface UserAttributes {
+interface IUser {
   id: number
-  title: string
-  slug?: string
-  instruction?: string
-  author?: string
-  meta?: UserMetadata
+  username: string
+  email: string
+  slug: string
+  password: string
+  role: RoleType
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date
 }
 
-export interface UserInput extends Optional<UserAttributes, 'id' | 'slug'> {
-  listings?: ListingInput[]
-}
-export interface UserOutput extends Required<UserAttributes> {}
+export interface UserInput extends Optional<IUser, 'id'> {}
+export interface UserOutput extends Required<IUser> {}
 
-class User extends Model<UserAttributes, UserInput> implements UserAttributes {
-  public id!: number
-  public title!: string
+class User extends Model<IUser, UserInput> implements IUser {
+  declare id: number
+  public username!: string
+  public email!: string
   public slug!: string
-  public instruction!: string
-  public author!: string
-  public meta!: UserMetadata
+  public password!: string
+  public role!: RoleType
 
   // timestamps!
   public readonly createdAt!: Date
@@ -44,23 +41,28 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     slug: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    instruction: {
-      type: DataTypes.TEXT,
-    },
-    meta: {
-      type: DataTypes.JSON,
-    },
-    author: {
+    password: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: Roles.User,
     },
   },
   {

@@ -1,6 +1,5 @@
 import { createLogger, format, transports } from 'winston'
-const { combine, timestamp, prettyPrint, colorize, json } = format
-import 'winston-daily-rotate-file'
+const { combine, timestamp, prettyPrint, colorize } = format
 
 /**
 	level - Level of messages to log.
@@ -11,6 +10,24 @@ import 'winston-daily-rotate-file'
   maxFiles - Limit the number of files created when the size of the logfile is exceeded.
   colorize - Colorize the output. This can be helpful when looking at console logs.
 */
+
+// const options = {
+//   file: {
+//     level: 'info',
+//     filename: `log/app.log`,
+//     handleExceptions: true,
+//     json: true,
+//     maxsize: 5242880, // 5MB
+//     maxFiles: 5,
+//     colorize: false,
+//   },
+//   console: {
+//     level: 'debug',
+//     handleExceptions: true,
+//     json: false,
+//     colorize: true,
+//   },
+// }
 
 const logger = createLogger({
   transports: [
@@ -23,19 +40,6 @@ const logger = createLogger({
       filename: 'log/error.log',
       level: 'error',
       maxsize: 5242880, // 5MB
-      maxFiles: 14, // keep logs for 14 days
-    }),
-    new transports.DailyRotateFile({
-      format: combine(timestamp(), prettyPrint(), colorize(), json()),
-      level: 'verbose',
-      // filename: 'log/app-%DATE%-debug.log',
-      datePattern: 'YYYY-MM-DD-HH',
-      zippedArchive: true,
-      handleExceptions: true,
-      // prettyPrint: true,
-      json: true,
-      // maxsize: 5242880, // 5MB
-      // colorize: true,
       maxFiles: 14, // keep logs for 14 days
     }),
   ],

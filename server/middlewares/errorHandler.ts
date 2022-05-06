@@ -10,6 +10,7 @@ const errorHandler = (
   // error level logging
   // logger.error(logger.combinedFormat(error, req, res))
   // logger.error(error.message)
+  console.log('Handler')
   res.status(error.status || 500).send({
     message: error.message || 'Internal server error.',
   })

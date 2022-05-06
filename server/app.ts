@@ -3,12 +3,14 @@ import cors from 'cors'
 import passport from 'passport'
 import './middlewares/passport'
 import router from './routes'
+// import morgan from 'morgan'
+import { errorHandler } from './middlewares'
 
 const app = express()
 
-process.on('unhandledRejection', (error) => {
-  throw error
-})
+// process.on('unhandledRejection', (error) => {
+//   throw error
+// })
 
 // parse json request body
 app.use(express.json())
@@ -18,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // enable cors
 app.use(cors())
+// app.use(morgan('combined'))
 
 app.use(passport.initialize())
 
@@ -33,5 +36,7 @@ app.use('/', router)
 app.all('*', async (_, res: Response) => {
   res.status(501).send({ message: 'This route is not implemented yet' })
 })
+
+app.use(errorHandler)
 
 export default app

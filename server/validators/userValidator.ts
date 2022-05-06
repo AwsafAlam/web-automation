@@ -8,6 +8,16 @@ export const phoneValidator: ValidationChain = body('phone')
   .isMobilePhone('bn-BD')
   .withMessage('Field must be a Bangladeshi phone number')
 
+export const emailValidator: ValidationChain = body('email')
+  .exists()
+  .withMessage(ValidatorMessages.Required)
+  .bail()
+  .isString()
+  .withMessage(ValidatorMessages.String)
+  .bail()
+  .matches(/^(\w|\.)*@(\w|\.)*\.(\w|\.)*$/)
+  .withMessage('Field must be an email')
+
 export const googleValidator: ValidationChain[] = [
   body('user')
     .exists()
@@ -32,7 +42,7 @@ export const googleValidator: ValidationChain[] = [
 ]
 
 export const loginValidator: ValidationChain[] = [
-  phoneValidator,
+  emailValidator,
   body('password')
     .exists()
     .withMessage(ValidatorMessages.Required)
@@ -56,11 +66,6 @@ export const registerValidator: ValidationChain[] = [
     .exists()
     .withMessage(ValidatorMessages.Required)
     .bail()
-    .isString()
-    .withMessage(ValidatorMessages.String),
-  body('address').optional().isString().withMessage(ValidatorMessages.String),
-  body('guardianSMS')
-    .optional()
     .isString()
     .withMessage(ValidatorMessages.String),
   ...loginValidator,

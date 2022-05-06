@@ -5,8 +5,17 @@ interface ListingAttributes {
   id: number
   name: string
   slug: string
+  phone?: string
   description?: string
-  foodGroup?: string
+  address?: string
+  city?: string
+  zipCode?: string
+  type?: string
+  state?: string
+  capacity?: string
+  county?: string
+  licensedBeds?: number
+  images?: string[]
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date
@@ -15,17 +24,26 @@ interface ListingAttributes {
 export interface ListingInput
   extends Optional<ListingAttributes, 'id' | 'slug'> {}
 
-export interface ListingOuput extends Required<ListingAttributes> {}
+export interface ListingOutput extends Required<ListingAttributes> {}
 
 class Listing
   extends Model<ListingAttributes, ListingInput>
   implements ListingAttributes
 {
   public id!: number
-  public name!: string
-  public slug!: string
-  public description!: string
-  public foodGroup!: string
+  declare name: string
+  declare slug: string
+  declare phone: string
+  declare description: string
+  declare address: string
+  declare city: string
+  declare zipCode: string
+  declare type: string
+  declare capacity: string
+  declare state: string
+  declare county: string
+  declare licensedBeds: number
+  declare images: string[]
 
   // timestamps!
   public readonly createdAt!: Date
@@ -49,11 +67,38 @@ Listing.init(
       allowNull: false,
       unique: true,
     },
+    phone: {
+      type: DataTypes.STRING,
+    },
     description: {
       type: DataTypes.TEXT,
     },
-    foodGroup: {
+    address: {
       type: DataTypes.STRING,
+    },
+    state: {
+      type: DataTypes.STRING,
+    },
+    city: {
+      type: DataTypes.STRING,
+    },
+    zipCode: {
+      type: DataTypes.STRING,
+    },
+    type: {
+      type: DataTypes.STRING,
+    },
+    capacity: {
+      type: DataTypes.STRING,
+    },
+    county: {
+      type: DataTypes.STRING,
+    },
+    licensedBeds: {
+      type: DataTypes.INTEGER,
+    },
+    images: {
+      type: DataTypes.JSON,
     },
   },
   {

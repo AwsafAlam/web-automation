@@ -1,15 +1,15 @@
 import sequelize from 'sequelize'
 
 export class ModelError {
-  error: string | undefined
+  error: string
 
-  constructor(error: Error | string | undefined) {
+  constructor(error: unknown) {
     this.error = this.processError(error)
   }
 
-  processError(error: Error | string | undefined): string | undefined {
+  processError(error: unknown): string {
     if (error === undefined) {
-      return undefined
+      return 'Unknown error'
     } else if (typeof error === 'string') {
       return error
     } else if (error instanceof sequelize.ValidationError) {
