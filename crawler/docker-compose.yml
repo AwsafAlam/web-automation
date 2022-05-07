@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+    restart: always
+
+  crawler:
+    build:
+      context: .
+    volumes:
+     - ./crawler:/crawler
+    command: sh -c "python3 runner.py"
+    depends_on:
+      - selenium

@@ -8,7 +8,6 @@ lerna-debug.log*
 
 instructions/
 server-node/
-crawler
 .vscode/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

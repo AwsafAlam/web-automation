@@ -16,6 +16,19 @@ const createListing = async (
   }
 }
 
+const createMany = async (
+  data: ListingInput[]
+): Promise<ListingOutput[] | ModelError> => {
+  try {
+    const listing = await Listing.bulkCreate(data)
+    return listing
+  } catch (error) {
+    const modelError = new ModelError(error)
+    logQueryError('listingModel', createListing.name, modelError.error)
+    return modelError
+  }
+}
+
 const getAll = async (): Promise<ListingOutput[]> =>
   await Listing.findAll({ limit: 100, offset: 0 })
 
@@ -67,6 +80,7 @@ export const deleteById = async (id: number): Promise<boolean> => {
 
 export default {
   createListing,
+  createMany,
   update,
   getById,
   deleteById,

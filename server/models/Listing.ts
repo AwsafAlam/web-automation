@@ -3,6 +3,7 @@ import sequelizeConnection from 'config/db'
 
 interface ListingAttributes {
   id: number
+  govSiteId?: number
   name: string
   slug: string
   phone?: string
@@ -14,7 +15,6 @@ interface ListingAttributes {
   state?: string
   capacity?: string
   county?: string
-  licensedBeds?: number
   images?: string[]
   createdAt?: Date
   updatedAt?: Date
@@ -31,6 +31,7 @@ class Listing
   implements ListingAttributes
 {
   public id!: number
+  declare govSiteId: number
   declare name: string
   declare slug: string
   declare phone: string
@@ -42,7 +43,6 @@ class Listing
   declare capacity: string
   declare state: string
   declare county: string
-  declare licensedBeds: number
   declare images: string[]
 
   // timestamps!
@@ -57,6 +57,9 @@ Listing.init(
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
+    },
+    govSiteId: {
+      type: DataTypes.INTEGER,
     },
     name: {
       type: DataTypes.STRING,
@@ -94,14 +97,17 @@ Listing.init(
     county: {
       type: DataTypes.STRING,
     },
-    licensedBeds: {
-      type: DataTypes.INTEGER,
-    },
     images: {
       type: DataTypes.JSON,
     },
   },
   {
+    indexes: [
+      {
+        unique: true,
+        fields: ['govSiteId', 'state'],
+      },
+    ],
     sequelize: sequelizeConnection,
     paranoid: true,
   }

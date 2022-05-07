@@ -3,7 +3,7 @@ import { ModelError } from 'lib/errors'
 import { ListingInput } from 'models/Listing'
 import { listingQuery } from 'queries'
 import { generateRandomText, generateSlug } from 'utils'
-import { Slug, ListingId } from './types'
+import { Slug, ListingId, SuccessMessage } from './types'
 
 const add = async (req: Request, res: Response): Promise<void> => {
   const data = req.body
@@ -29,6 +29,41 @@ const add = async (req: Request, res: Response): Promise<void> => {
   } else {
     res.status(200).json(response)
   }
+}
+
+const addMany = async (
+  req: Request<never, never, ListingInput[]>,
+  res: Response
+): Promise<void> => {
+  const listingData = req.body
+
+  const responses: SuccessMessage[] = []
+  //! Note: We are not using createMany here in order to have better error handling
+  for (let i = 0; i < listingData.length; i++) {
+    const element = listingData[i]
+
+    let slug = generateSlug(element.name)
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const userBySlug = await listingQuery.getBySlug(slug)
+
+      if (!userBySlug) break
+
+      slug = generateSlug(element.name) + generateRandomText('-', 3)
+    }
+
+    const response = await listingQuery.createListing({
+      ...element,
+      slug,
+    })
+    if (response instanceof ModelError) {
+      responses.push({ message: response.error })
+    } else {
+      responses.push({ message: `Created listing[${response.id}]` })
+    }
+  }
+
+  res.status(200).json(responses)
 }
 
 const getAll = async (_: Request, res: Response): Promise<void> => {
@@ -88,6 +123,7 @@ const getBySlug = async (req: Request<Slug>, res: Response): Promise<void> => {
 
 export default {
   add,
+  addMany,
   getAll,
   getBySlug,
   getById,

@@ -9,3 +9,5 @@ export interface Slug {
 export interface ListingId {
   id: number
 }
+
+export interface RequestId extends ListingId {}

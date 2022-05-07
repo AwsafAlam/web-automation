@@ -8,6 +8,8 @@ const router = Router()
 
 router.get('/', listingController.getAll).post('/', listingController.add)
 
+router.post('/multiple', listingController.addMany)
+
 router
   .get('/:slug', listingController.getBySlug)
   .put(
