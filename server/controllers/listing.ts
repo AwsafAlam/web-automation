@@ -120,8 +120,9 @@ const uploadImages = async (
   res: Response
 ): Promise<void> => {
   const { id } = req.body
-  const { publicUrl } = res.locals
-  const response = await listingQuery.updateImage(id, publicUrl)
+  const { images } = res.locals
+
+  const response = await listingQuery.updateImage(id, images)
 
   res.status(200).json(response)
 }

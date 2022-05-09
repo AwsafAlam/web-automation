@@ -16,7 +16,7 @@
   "author": "Awsaf Alam, Tasin Hoque",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1018.0",
+    "aws-sdk": "^2.1130.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -30,10 +30,12 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "sequelize": "^6.19.0",
+    "sharp": "^0.30.4",
     "sqlite3": "^5.0.7",
     "validator": "^13.5.2"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.9",
@@ -43,6 +45,7 @@
     "@types/passport": "^1.0.4",
     "@types/passport-jwt": "^3.0.3",
     "@types/sequelize": "^4.28.12",
+    "@types/sharp": "^0.30.2",
     "@types/validator": "^13.1.1",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",

@@ -95,14 +95,20 @@ export const update = async (
 
 export const updateImage = async (
   id: number,
-  imageUrl: string
+  imageUrl: string[]
 ): Promise<ListingOutput> => {
-  console.log(imageUrl)
-  const listing = await Listing.findByPk(id)
+  let listing = await Listing.findByPk(id)
 
   if (!listing) {
     //@todo throw custom error
     throw new Error('not found')
+  }
+  const images = listing.images
+  if (images) {
+    images.push(...imageUrl)
+    listing = await listing.update({ images: images })
+  } else {
+    listing = await listing.update({ images: imageUrl })
   }
 
   return listing

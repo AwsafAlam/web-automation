@@ -1,4 +1,5 @@
-export { default as uploadFile } from './uploadFile'
+export { default as uploadSingle } from './uploadSingle'
+export { default as uploadMultiple } from './uploadMultiple'
 export { default as errorHandler } from './errorHandler'
 export { default as auth, allRoles, adminRole } from './auth'
 export { default as InputValidator } from './inputValidator'

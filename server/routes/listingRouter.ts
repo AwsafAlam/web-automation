@@ -1,7 +1,7 @@
 import { listingController } from 'controllers'
 import { Router } from 'express'
 import { validate } from 'middlewares'
-import { uploadFile } from 'middlewares'
+import uploadMultipleImages from 'middlewares/uploadMultiple'
 import { multer } from 'utils'
 import { updateListingValidator } from 'validators/listingValidator'
 
@@ -12,7 +12,12 @@ router.get('/', listingController.getAll).post('/', listingController.add)
 router.post('/multiple', listingController.addMany)
 router.post('/search', listingController.searchListing)
 
-router.put('/image', multer.single('image'), uploadFile('image'))
+router.put(
+  '/images',
+  multer.array('images'),
+  uploadMultipleImages,
+  listingController.uploadImages
+)
 
 router
   .get('/:slug', listingController.getBySlug)
