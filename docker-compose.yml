@@ -8,24 +8,24 @@ networks:
         - subnet: 172.28.0.0/16
 
 services:
-  # selenium:
-  #   image: selenium/standalone-chrome
-  #   networks:
-  #     - automation_net
-  #   ports:
-  #     - 4444:4444
-  #   restart: always
+  selenium:
+    image: selenium/standalone-chrome
+    networks:
+      - automation_net
+    ports:
+      - 4444:4444
+    restart: always
 
-  # crawler:
-  #   build:
-  #     context: ./crawler
-  #   volumes:
-  #    - ./crawler:/crawler
-  #   command: sh -c "python3 runner.py"
-  #   networks:
-  #     - automation_net
-  #   depends_on:
-  #     - selenium
+  crawler:
+    build:
+      context: ./crawler
+    volumes:
+     - ./crawler:/crawler
+    command: sh -c "python3 runner.py"
+    networks:
+      - automation_net
+    depends_on:
+      - selenium
   lb:
     image: haproxy
     ports:
