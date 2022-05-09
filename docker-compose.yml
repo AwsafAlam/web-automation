@@ -32,7 +32,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./haproxy/dev:/usr/local/etc/haproxy
+      - ./haproxy/prod:/usr/local/etc/haproxy
     networks:
       - automation_net
     restart: on-failure
