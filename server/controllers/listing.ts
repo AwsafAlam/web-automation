@@ -71,6 +71,17 @@ const getAll = async (_: Request, res: Response): Promise<void> => {
   res.status(200).json(listings)
 }
 
+const searchListing = async (req: Request, res: Response): Promise<void> => {
+  const { name, city, state } = req.body
+  const listings = await listingQuery.getAllFiltered(name, city, state)
+
+  if (listings instanceof ModelError) {
+    res.status(400).json({ message: listings.error })
+  } else {
+    res.status(200).json(listings)
+  }
+}
+
 const getById = async (
   req: Request<ListingId>,
   res: Response
@@ -104,6 +115,17 @@ const updateById = async (
   }
 }
 
+const uploadImages = async (
+  req: Request<never, never, { id: number }>,
+  res: Response
+): Promise<void> => {
+  const { id } = req.body
+  const { publicUrl } = res.locals
+  const response = await listingQuery.updateImage(id, publicUrl)
+
+  res.status(200).json(response)
+}
+
 const updateBySlug = async (_: Request, res: Response): Promise<void> => {
   res.status(200).json({ response: true })
 }
@@ -117,14 +139,16 @@ const getBySlug = async (req: Request<Slug>, res: Response): Promise<void> => {
   } else if (listing instanceof ModelError) {
     res.status(400).json({ message: 'Listing not found' })
   } else {
-    res.status(200).json({ response: true })
+    res.status(200).json(listing)
   }
 }
 
 export default {
   add,
   addMany,
+  uploadImages,
   getAll,
+  searchListing,
   getBySlug,
   getById,
   updateById,

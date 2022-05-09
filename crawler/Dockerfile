@@ -5,5 +5,5 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 RUN mkdir /crawler
-COPY ./crawler /crawler
+COPY . /crawler
 WORKDIR /crawler

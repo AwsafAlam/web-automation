@@ -12,6 +12,8 @@ while True:
     if (request is None) or ("id" not in request):
         # increase the sleep timer
         sleepTimer += 3
+        if sleepTimer > 20:
+            sleepTimer = 1
         print("No valid request. Going to sleep for:",sleepTimer)
         continue
     

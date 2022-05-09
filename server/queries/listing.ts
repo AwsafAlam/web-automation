@@ -2,6 +2,7 @@ import { Listing } from 'models'
 import { ListingInput, ListingOutput } from 'models/Listing'
 import { ModelError } from 'lib/errors'
 import { logQueryError } from 'lib/logging'
+import { Op } from 'sequelize'
 
 const createListing = async (
   data: ListingInput
@@ -32,6 +33,39 @@ const createMany = async (
 const getAll = async (): Promise<ListingOutput[]> =>
   await Listing.findAll({ limit: 100, offset: 0 })
 
+const getAllFiltered = async (
+  name?: string,
+  city?: string,
+  state?: string
+): Promise<ListingOutput[] | ModelError> => {
+  const filters = []
+
+  if (name) {
+    filters.push({ name: { [Op.like]: `%${name}%` } })
+  }
+  if (city) {
+    filters.push({ city: { [Op.like]: `%${city}%` } })
+  }
+  if (state) {
+    filters.push({ state: { [Op.like]: `%${state}%` } })
+  }
+
+  try {
+    const listings = await Listing.findAll({
+      attributes: ['id', 'name', 'slug', 'address', 'type', 'city', 'state'],
+      where: {
+        [Op.and]: filters,
+      },
+      order: [['createdAt', 'DESC']],
+      limit: 50,
+    })
+    return listings
+  } catch (error) {
+    const modelError = new ModelError(error)
+    logQueryError('listingModel', getBySlug.name, modelError.error)
+    return modelError
+  }
+}
 const getBySlug = async (
   slug: string
 ): Promise<ListingOutput | null | ModelError> => {
@@ -59,6 +93,21 @@ export const update = async (
   return listing.update(payload)
 }
 
+export const updateImage = async (
+  id: number,
+  imageUrl: string
+): Promise<ListingOutput> => {
+  console.log(imageUrl)
+  const listing = await Listing.findByPk(id)
+
+  if (!listing) {
+    //@todo throw custom error
+    throw new Error('not found')
+  }
+
+  return listing
+}
+
 export const getById = async (id: number): Promise<ListingOutput> => {
   const listing = await Listing.findByPk(id)
 
@@ -82,6 +131,8 @@ export default {
   createListing,
   createMany,
   update,
+  updateImage,
+  getAllFiltered,
   getById,
   deleteById,
   getAll,

@@ -118,3 +118,6 @@ def getWebData(city,name,type = 'ALL'):
 # result = getWebData('ALL','NEW ORLEANS','test')
 # print('=======================================================')
 # print(result)
+
+# California
+# https://www.ccld.dss.ca.gov/carefacilitysearch/Search/ElderlyAssistedLiving
