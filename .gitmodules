@@ -1,0 +1,3 @@
+[submodule "react-mui-search"]
+	path = react-mui-search
+	url = https://github.com/AwsafAlam/react-mui-search.git
