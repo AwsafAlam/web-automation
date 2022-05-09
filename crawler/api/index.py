@@ -1,9 +1,11 @@
 import requests
 
-baseUrl = 'http://localhost:1111'
+# baseUrl = 'http://localhost:1111'
+baseUrl = 'http://server:1111'
 
 def get(url, params = {}):
   try:
+    print("GET req: ",baseUrl+url)
     r = requests.get(baseUrl+url, params)
     return r.json()
   except requests.exceptions.Timeout:
@@ -15,6 +17,7 @@ def get(url, params = {}):
     raise Exception('Server Error',err)
 
 def post(url, body):
+  print("POST req: ",baseUrl+url)
   try:
       r = requests.post(baseUrl+url, json=body)
       # extracting data in json format
@@ -29,6 +32,7 @@ def post(url, body):
 
 
 def put(url, body):
+  print("PUT req: ",baseUrl+url)
   try:
     r = requests.put(baseUrl+url, json=body)
     # extracting data in json format

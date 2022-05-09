@@ -42,7 +42,7 @@ const uploadMultipleImages = async (
 
         const s3Params = {
           Bucket: s3Bucket,
-          Key: `discussions/${file.originalname}-${new Date().toISOString()}`,
+          Key: `original/${file.originalname}-${new Date().toISOString()}`,
           Body: buffer,
           ContentType: file.mimetype,
           ACL: 'public-read',

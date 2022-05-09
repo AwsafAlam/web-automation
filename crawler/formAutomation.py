@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -23,9 +24,9 @@ def getWebData(city,name,type = 'ALL'):
     prefs = {"download.default_directory" : "/Users/awsaf/Documents/boomershub_test_awsaf/backend-services/crawler/web-parser/downloads"}
     options.add_experimental_option("prefs",prefs)
 
-    driver = webdriver.Chrome('./chromedriver',chrome_options=options)
+    # driver = webdriver.Chrome('./chromedriver',chrome_options=options)
     # time.sleep(10)
-    # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
       
     driver.implicitly_wait(1)
     driver.get("https://www.floridahealthfinder.gov/facilitylocator/FacilitySearch.aspx")
