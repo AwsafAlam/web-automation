@@ -7,6 +7,16 @@ const createRequest = async (
   data: RequestInput
 ): Promise<RequestOutput | ModelError> => {
   try {
+    //ToDo: Hardcoded for now
+    if (!data.url || data.url === '') {
+      if (data.state === 'CA') {
+        data.url =
+          'https://www.ccld.dss.ca.gov/carefacilitysearch/Search/ElderlyAssistedLiving'
+      } else {
+        data.url =
+          'https://www.floridahealthfinder.gov/facilitylocator/FacilitySearch.aspx'
+      }
+    }
     const request = await Request.create(data)
     return request
   } catch (error) {
