@@ -12,6 +12,7 @@ interface ListingAttributes {
   city?: string
   zipCode?: string
   type?: string
+  url?: string
   state?: string
   capacity?: string
   county?: string
@@ -40,6 +41,7 @@ class Listing
   declare city: string
   declare zipCode: string
   declare type: string
+  declare url: string
   declare capacity: string
   declare state: string
   declare county: string
@@ -89,6 +91,9 @@ Listing.init(
       type: DataTypes.STRING,
     },
     type: {
+      type: DataTypes.STRING,
+    },
+    url: {
       type: DataTypes.STRING,
     },
     capacity: {
