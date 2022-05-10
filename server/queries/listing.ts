@@ -79,11 +79,11 @@ const getBySlug = async (
   }
 }
 
-export const update = async (
-  id: number,
+export const updatebyGovSite = async (
+  govSiteId: number,
   payload: Partial<ListingInput>
 ): Promise<ListingOutput> => {
-  const listing = await Listing.findByPk(id)
+  const listing = await Listing.findOne({ where: { govSiteId } })
 
   if (!listing) {
     //@todo throw custom error
@@ -136,7 +136,7 @@ export const deleteById = async (id: number): Promise<boolean> => {
 export default {
   createListing,
   createMany,
-  update,
+  updatebyGovSite,
   updateImage,
   getAllFiltered,
   getById,

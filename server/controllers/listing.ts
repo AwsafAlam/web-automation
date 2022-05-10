@@ -99,13 +99,13 @@ const getById = async (
   }
 }
 
-const updateById = async (
+const updateBygovSiteId = async (
   req: Request<ListingId, never, ListingInput>,
   res: Response
 ): Promise<void> => {
   const { id } = req.params
   const data = req.body
-  const listing = await listingQuery.update(id, data)
+  const listing = await listingQuery.updatebyGovSite(id, data)
 
   if (!listing) {
     res.status(404).json({ message: 'Listing not found' })
@@ -126,10 +126,6 @@ const uploadImages = async (
   const response = await listingQuery.updateImage(id, images)
 
   res.status(200).json(response)
-}
-
-const updateBySlug = async (_: Request, res: Response): Promise<void> => {
-  res.status(200).json({ response: true })
 }
 
 const getBySlug = async (req: Request<Slug>, res: Response): Promise<void> => {
@@ -153,6 +149,5 @@ export default {
   searchListing,
   getBySlug,
   getById,
-  updateById,
-  updateBySlug,
+  updateBygovSiteId,
 }

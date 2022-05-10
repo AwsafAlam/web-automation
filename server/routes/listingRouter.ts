@@ -1,9 +1,9 @@
 import { listingController } from 'controllers'
 import { Router } from 'express'
-import { validate } from 'middlewares'
+// import { validate } from 'middlewares'
 import uploadMultipleImages from 'middlewares/uploadMultiple'
 import { multer } from 'utils'
-import { updateListingValidator } from 'validators/listingValidator'
+// import { updateListingValidator } from 'validators/listingValidator'
 
 const router = Router()
 
@@ -19,16 +19,10 @@ router.put(
   listingController.uploadImages
 )
 
-router
-  .get('/:slug', listingController.getBySlug)
-  .put(
-    '/:slug',
-    validate(updateListingValidator),
-    listingController.updateBySlug
-  )
+router.get('/:slug', listingController.getBySlug)
 
 router
   .get('/:id', listingController.getById)
-  .put('/:id', listingController.updateById)
+  .put('/:id', listingController.updateBygovSiteId)
 
 export default router

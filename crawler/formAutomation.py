@@ -16,20 +16,28 @@ colMap = {
   8: 'capacity'
 }
 
-def getWebData(city,name,type = 'ALL'):
-  try:
-    print("Parsing web data")
-    time.sleep(5)
-    options = webdriver.ChromeOptions()
-    prefs = {"download.default_directory" : "/Users/awsaf/Documents/boomershub_test_awsaf/backend-services/crawler/web-parser/downloads"}
-    options.add_experimental_option("prefs",prefs)
+def getDriver():
+  time.sleep(5)
+  options = webdriver.ChromeOptions()
+  prefs = {"download.default_directory" : "/Users/awsaf/Documents/boomershub_test_awsaf/backend-services/crawler/web-parser/downloads"}
+  options.add_experimental_option("prefs",prefs)
 
-    time.sleep(10)
-    # driver = webdriver.Chrome('./chromedriver',chrome_options=options)
-    driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-      
-    driver.implicitly_wait(1)
+  time.sleep(10)
+  # driver = webdriver.Chrome('./chromedriver',chrome_options=options)
+  driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+  driver.implicitly_wait(5)
+
+  return driver
+
+def getSearchData(city,name,type = 'ALL'):
+  try:
+    print("Parsing search data")
+    driver = getDriver()
+    time.sleep(2)
     driver.get("https://www.floridahealthfinder.gov/facilitylocator/FacilitySearch.aspx")
+    driver.implicitly_wait(7)
+    time.sleep(5)
+    
     print(driver.title)
 
     # select type
@@ -47,10 +55,12 @@ def getWebData(city,name,type = 'ALL'):
       inputCity.send_keys(city)
     
     searchBtn = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_SearchButton')
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
 
     driver.execute_script("arguments[0].scrollIntoView();", searchBtn)
     driver.execute_script("arguments[0].click();", searchBtn)
+    driver.implicitly_wait(5)
+    time.sleep(1)
     
     print("Page title is: ")
     print(driver.title)
@@ -60,10 +70,6 @@ def getWebData(city,name,type = 'ALL'):
     # driver.execute_script("arguments[0].scrollIntoView();", exportBtn)
     # driver.execute_script("arguments[0].click();", exportBtn)
     # time.sleep(5)
-
-    # search_bar.clear()
-    # search_bar.send_keys(name)
-    # search_bar.send_keys(Keys.RETURN)
     
     before_XPath = "//*[@id='ctl00_mainContentPlaceHolder_dgFacilities']/tbody/tr["
     aftertd_XPath = "]/td["
@@ -115,6 +121,58 @@ def getWebData(city,name,type = 'ALL'):
     driver.quit()
     # raise Exception('Error fetching web data',err)
     return 'Error'
+
+
+def getProfileData(url):
+  try:
+    print("Parsing profile data")
+    driver = getDriver()
+    time.sleep(2)
+    driver.get(url)
+    driver.implicitly_wait(7)
+    time.sleep(5)
+    
+    print("Page title is: ")
+    print(driver.title)
+
+    owner = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwner').text
+    licenseSince = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnerSinceDate').text
+
+    profitStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnership').text
+    ahaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblAhcaNumber').text
+    
+    cliaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblCliaNumber').text
+    fieldOffices = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lnkAhcaRegion').text
+    
+    medicareStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblLicenseType').text
+    
+    mailingAddress = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailAddress1').text
+    county = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailCounty').text
+    
+    driver.implicitly_wait(3)
+  
+    resultDict = {
+        "govSiteId": url.split('=')[1],
+        "mailingAddress": mailingAddress,
+        "county": county,
+        "owner": owner,
+        "licenseSince": licenseSince,
+        "profitStatus": profitStatus,
+        "ahaNum": ahaNum,
+        "cliaNum": cliaNum,
+        "fieldOffices": fieldOffices,
+        "medicareStatus": medicareStatus,
+    }
+    
+    driver.quit()
+    return resultDict
+  except Exception as err:
+    print('Error fetching web data')
+    print(err)
+    driver.quit()
+    # raise Exception('Error fetching web data',err)
+    return 'Error'
+
 
 # result = getWebData('ALL','NEW ORLEANS','test')
 # print('=======================================================')

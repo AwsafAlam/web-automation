@@ -9,6 +9,7 @@ interface ListingAttributes {
   phone?: string
   description?: string
   address?: string
+  mailingAddress?: string
   city?: string
   zipCode?: string
   type?: string
@@ -17,6 +18,13 @@ interface ListingAttributes {
   capacity?: string
   county?: string
   images?: string[]
+  owner?: string
+  licenseSince?: string
+  profitStatus?: string
+  ahaNum?: string
+  cliaNum?: string
+  fieldOffices?: string
+  medicareStatus?: string
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date
@@ -38,6 +46,7 @@ class Listing
   declare phone: string
   declare description: string
   declare address: string
+  declare mailingAddress: string
   declare city: string
   declare zipCode: string
   declare type: string
@@ -46,6 +55,13 @@ class Listing
   declare state: string
   declare county: string
   declare images: string[]
+  declare owner: string
+  declare licenseSince: string
+  declare profitStatus: string
+  declare ahaNum: string
+  declare cliaNum: string
+  declare fieldOffices: string
+  declare medicareStatus: string
 
   // timestamps!
   public readonly createdAt!: Date
@@ -81,6 +97,9 @@ Listing.init(
     address: {
       type: DataTypes.STRING,
     },
+    mailingAddress: {
+      type: DataTypes.STRING,
+    },
     state: {
       type: DataTypes.STRING,
     },
@@ -100,6 +119,27 @@ Listing.init(
       type: DataTypes.STRING,
     },
     county: {
+      type: DataTypes.STRING,
+    },
+    owner: {
+      type: DataTypes.STRING,
+    },
+    licenseSince: {
+      type: DataTypes.STRING,
+    },
+    profitStatus: {
+      type: DataTypes.STRING,
+    },
+    ahaNum: {
+      type: DataTypes.STRING,
+    },
+    cliaNum: {
+      type: DataTypes.STRING,
+    },
+    fieldOffices: {
+      type: DataTypes.STRING,
+    },
+    medicareStatus: {
       type: DataTypes.STRING,
     },
     images: {
