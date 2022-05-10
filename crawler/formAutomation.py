@@ -145,11 +145,27 @@ def getProfileData(url):
       owner=''
       print("Element not found")
       pass
-
-    licenseSince = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnerSinceDate').text
-
-    profitStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnership').text
-    ahaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblAhcaNumber').text
+    
+    try:
+      licenseSince = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnerSinceDate').text
+    except:
+      licenseSince=''
+      print("Element not found")
+      pass
+    
+    try:
+      profitStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnership').text
+    except:
+      profitStatus=''
+      print("Element not found")
+      pass
+    
+    try:
+      ahaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblAhcaNumber').text
+    except:
+      ahaNum=''
+      print("Element not found")
+      pass
     
     try:
       cliaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblCliaNumber').text
@@ -158,13 +174,34 @@ def getProfileData(url):
       print("Element not found")
       pass
 
-    fieldOffices = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lnkAhcaRegion').text
+    try:
+      fieldOffices = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lnkAhcaRegion').text
+    except:
+      fieldOffices=''
+      print("Element not found")
+      pass
     
-    medicareStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblLicenseType').text
+    try:
+      medicareStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblLicenseType').text
+    except:
+      medicareStatus=''
+      print("Element not found")
+      pass
     
-    mailingAddress = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailAddress1').text
-    county = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailCounty').text
-    
+    try:
+      mailingAddress = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailAddress1').text
+    except:
+      mailingAddress=''
+      print("Element not found")
+      pass
+
+    try:
+      county = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblMailCounty').text
+    except:
+      county=''
+      print("Element not found")
+      pass
+  
     driver.implicitly_wait(3)
   
     resultDict = {
