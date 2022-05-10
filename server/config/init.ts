@@ -8,9 +8,9 @@ const dbInit = () =>
   Promise.all([
     // User.sync({ alter: isDev || isTest }),
     // Listing.sync({ alter: isDev || isTest }),
-    User.sync({ alter: true, force: false }),
-    Listing.sync({ alter: true, force: false }),
-    Request.sync({ alter: true, force: false }),
+    User.sync({ alter: false, force: false }),
+    Listing.sync({ alter: false, force: false }),
+    Request.sync({ alter: false, force: false }),
   ])
 
 export default dbInit

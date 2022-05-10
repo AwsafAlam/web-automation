@@ -52,7 +52,8 @@ while True:
             listing = post('/listings/multiple', resultData)
             print(listing)
         
-        update = put('/requests/'+ str(request['id']), {"crawled": True})
+        # successfully crawled
+        update = put('/requests/'+ str(request['id']), {"tryCount": 999, "crawled": True})
 
         sleepTimer=1
         continue

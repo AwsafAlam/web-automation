@@ -56,3 +56,9 @@ Private Routes (Only accessible inside the network)
 - **Request Service:**
 
 - `POST /requests` -> add a request.
+
+### Deployment
+
+**SSL Configuration:**
+
+SSL was configured using `certbot`. Further details provided [here](/documentation/ssl-config.md)
