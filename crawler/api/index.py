@@ -1,7 +1,7 @@
 import requests
 
-# baseUrl = 'http://localhost:1111'
-baseUrl = 'http://server:1111'
+baseUrl = 'http://localhost:1111'
+# baseUrl = 'http://server:1111'
 
 def get(url, params = {}):
   try:
