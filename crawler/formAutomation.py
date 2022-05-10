@@ -142,7 +142,9 @@ def getProfileData(url):
     try:
       owner = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwner').text
     except:
+      owner=''
       print("Element not found")
+      pass
 
     licenseSince = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnerSinceDate').text
 
@@ -152,7 +154,9 @@ def getProfileData(url):
     try:
       cliaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblCliaNumber').text
     except:
+      cliaNum=''
       print("Element not found")
+      pass
 
     fieldOffices = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lnkAhcaRegion').text
     
