@@ -139,13 +139,21 @@ def getProfileData(url):
     print("Page title is: ")
     print(driver.title)
 
-    owner = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwner').text
+    try:
+      owner = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwner').text
+    except:
+      print("Element not found")
+
     licenseSince = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnerSinceDate').text
 
     profitStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblOwnership').text
     ahaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblAhcaNumber').text
     
-    cliaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblCliaNumber').text
+    try:
+      cliaNum = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblCliaNumber').text
+    except:
+      print("Element not found")
+
     fieldOffices = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lnkAhcaRegion').text
     
     medicareStatus = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_lblLicenseType').text
