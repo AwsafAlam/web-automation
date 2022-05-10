@@ -41,17 +41,20 @@ def getSearchData(city,name,type = 'ALL'):
     print(driver.title)
 
     # select type
+    print("Entering type: "+type)
     selectType = Select(driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_FacilityType'))
     selectType.select_by_value(type)
     
     # search Name
     if name is not None:
       inputName = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_FacilityName')
+      print("Entering name: "+name)
       inputName.send_keys(name)
     
     # select city
     if city is not None:
       inputCity = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_City')
+      print("Entering city: "+city)
       inputCity.send_keys(city)
     
     searchBtn = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_SearchButton')
@@ -59,8 +62,8 @@ def getSearchData(city,name,type = 'ALL'):
 
     driver.execute_script("arguments[0].scrollIntoView();", searchBtn)
     driver.execute_script("arguments[0].click();", searchBtn)
-    driver.implicitly_wait(5)
-    time.sleep(1)
+    # driver.implicitly_wait(5)
+    # time.sleep(1)
     
     print("Page title is: ")
     print(driver.title)
@@ -69,7 +72,7 @@ def getSearchData(city,name,type = 'ALL'):
     # exportBtn = driver.find_element(By.ID,'ctl00_mainContentPlaceHolder_btnExport1')
     # driver.execute_script("arguments[0].scrollIntoView();", exportBtn)
     # driver.execute_script("arguments[0].click();", exportBtn)
-    # time.sleep(5)
+    time.sleep(5)
     
     before_XPath = "//*[@id='ctl00_mainContentPlaceHolder_dgFacilities']/tbody/tr["
     aftertd_XPath = "]/td["
