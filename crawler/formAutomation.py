@@ -18,14 +18,14 @@ colMap = {
 
 def getDriver():
   time.sleep(5)
-  options = webdriver.ChromeOptions()
-  prefs = {"download.default_directory" : "/Users/awsaf/Documents/boomershub_test_awsaf/backend-services/crawler/web-parser/downloads"}
-  options.add_experimental_option("prefs",prefs)
+  # options = webdriver.ChromeOptions()
+  # prefs = {"download.default_directory" : "/Users/awsaf/Documents/boomershub_test_awsaf/backend-services/crawler/web-parser/downloads"}
+  # options.add_experimental_option("prefs",prefs)
 
   time.sleep(10)
-  driver = webdriver.Chrome('./chromedriver_linux',chrome_options=options)
-  # driver = webdriver.Chrome('./chromedriver',chrome_options=options)
-  # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+  # driver = webdriver.Chrome('./chromedriver_linux')
+  # driver = webdriver.Chrome('./chromedriver')
+  driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
   driver.implicitly_wait(5)
 
   return driver
