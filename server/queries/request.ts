@@ -17,6 +17,7 @@ const createRequest = async (
           'https://www.floridahealthfinder.gov/facilitylocator/FacilitySearch.aspx'
       }
     }
+
     const request = await Request.create(data)
     return request
   } catch (error) {

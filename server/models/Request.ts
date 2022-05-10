@@ -9,7 +9,7 @@ interface RequestAttributes {
   name?: string
   createdAt?: Date
   city?: string
-  type?: string
+  type: string
   state?: string
   updatedAt?: Date
   deletedAt?: Date
@@ -69,6 +69,7 @@ Request.init(
     },
     type: {
       type: DataTypes.STRING,
+      defaultValue: 'ALL',
     },
   },
   {
