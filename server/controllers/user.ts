@@ -2,11 +2,8 @@ import { Request, Response } from 'express'
 import { Roles } from 'lib/constants'
 import { ModelError } from 'lib/errors'
 import bcrypt from 'bcryptjs'
-// import { HttpException } from 'lib/exceptions'
 import { userQuery } from 'queries'
 import { generateRandomText, generateSlug } from 'utils'
-// import { UserInput } from 'models/User'
-// import { SuccessMessage } from './types'
 
 const login = async (_: Request, res: Response): Promise<void> => {
   res.status(200).json({ response: true })

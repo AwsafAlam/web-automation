@@ -24,13 +24,14 @@ app.use(cors())
 
 app.use(passport.initialize())
 
-app.get('/status', async (_, res: Response) => {
+app.get('/v1/status', async (_, res: Response) => {
   res
     .status(200)
     .send({ message: 'Server is up and running', version: '1.0.0' })
 })
 
-app.use('/', router)
+app.use('/v1', router.v1)
+app.use('/private', router.interService)
 
 // catch all
 app.all('*', async (_, res: Response) => {
