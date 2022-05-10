@@ -26,6 +26,7 @@ services:
       - automation_net
     depends_on:
       - selenium
+      - server
   lb:
     image: haproxy
     ports:

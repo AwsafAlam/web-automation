@@ -4,7 +4,7 @@ from formAutomation import getWebData
 import time
 
 # Container startup time
-# time.sleep(15)
+time.sleep(5)
 
 sleepTimer=1
 while True:
