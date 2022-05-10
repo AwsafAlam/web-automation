@@ -31,6 +31,12 @@ while True:
         # for data in resultData:
         #     listing = post('/listings', data)
         #     print(listing)
+        if resultData == 'Error':
+            sleepTimer=5
+            if request['tryCount'] > 9:
+                # No need to retry
+                update = put('/requests/'+ str(request['id']), {"crawled": True})
+            continue
 
         # write data to db
         listing = post('/listings/multiple', resultData)

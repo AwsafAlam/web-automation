@@ -34,7 +34,10 @@ const getOneUncrawled = async (): Promise<
   RequestOutput | null | ModelError
 > => {
   try {
-    const request = await Request.findOne({ where: { crawled: false } })
+    const request = await Request.findOne({
+      where: { crawled: false },
+      order: [['tryCount', 'ASC']],
+    })
     return request
   } catch (error) {
     const modelError = new ModelError(error)

@@ -113,8 +113,8 @@ def getWebData(city,name,type = 'ALL'):
     print('Error fetching web data')
     print(err)
     driver.quit()
-    raise Exception('Error fetching web data',err)
-    # return "Something wrong from crawler"
+    # raise Exception('Error fetching web data',err)
+    return 'Error'
 
 # result = getWebData('ALL','NEW ORLEANS','test')
 # print('=======================================================')
