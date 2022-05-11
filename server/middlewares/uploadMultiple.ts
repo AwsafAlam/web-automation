@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { config as awsConfig, S3 } from 'aws-sdk'
-import fs from 'fs'
+import sharp from 'sharp'
+// import fs from 'fs'
 
 import config from 'config'
 
@@ -33,20 +34,32 @@ const uploadMultipleImages = async (
 
     const s3Bucket = config.aws.bucketName
     const s3 = new S3()
-    const files = req.files as unknown as CustomFile[]
+    const files = req.files as unknown as Express.Multer.File[]
     const promises = []
 
     if (s3Bucket) {
       for (const file of files) {
-        const buffer = fs.readFileSync(file.path)
+        const { data, info } = await sharp(file.buffer)
+          .resize(320, 160)
+          .toFormat('jpg')
+          .jpeg({ quality: 80 })
+          .toBuffer({ resolveWithObject: true })
 
         const s3Params = {
           Bucket: s3Bucket,
-          Key: `original/${file.originalname}-${new Date().toISOString()}`,
-          Body: buffer,
-          ContentType: file.mimetype,
+          Key: `compressed/${file.originalname}-${new Date().toISOString()}`,
+          Body: data,
+          ContentType: info.format,
           ACL: 'public-read',
         }
+        // const buffer = fs.readFileSync(file.path)
+        // const s3Params = {
+        //   Bucket: s3Bucket,
+        //   Key: `original/${file.originalname}-${new Date().toISOString()}`,
+        //   Body: buffer,
+        //   ContentType: file.mimetype,
+        //   ACL: 'public-read',
+        // }
 
         const promise = s3
           .upload(
