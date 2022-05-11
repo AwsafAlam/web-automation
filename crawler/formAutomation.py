@@ -25,7 +25,15 @@ def getDriver():
   time.sleep(10)
   # driver = webdriver.Chrome('./chromedriver_linux')
   # driver = webdriver.Chrome('./chromedriver')
-  driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+  # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+  options = webdriver.ChromeOptions()
+  options.add_argument('--ignore-ssl-errors=yes')
+  options.add_argument('--ignore-certificate-errors')
+  driver = webdriver.Remote(
+    command_executor='http://selenium:4444/wd/hub',
+    options=options,
+    desired_capabilities=DesiredCapabilities.CHROME
+  )
   driver.implicitly_wait(5)
 
   return driver
