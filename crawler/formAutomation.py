@@ -24,8 +24,8 @@ def getDriver():
 
   time.sleep(10)
   # driver = webdriver.Chrome('./chromedriver_linux')
-  # driver = webdriver.Chrome('./chromedriver')
-  driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+  driver = webdriver.Chrome('./chromedriver')
+  # driver = webdriver.Remote('http://selenium:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
   driver.implicitly_wait(5)
 
   return driver
