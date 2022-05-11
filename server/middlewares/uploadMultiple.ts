@@ -34,24 +34,11 @@ const uploadMultipleImages = async (
 
     const s3Bucket = config.aws.bucketName
     const s3 = new S3()
-    const files = req.files as unknown as Express.Multer.File[]
+    const files = req.files as unknown as CustomFile[]
     const promises = []
 
     if (s3Bucket) {
       for (const file of files) {
-        // const { data, info } = await sharp(file.buffer)
-        //   .resize(320, 160)
-        //   .toFormat('jpg')
-        //   .jpeg({ quality: 80 })
-        //   .toBuffer({ resolveWithObject: true })
-
-        // const s3Params = {
-        //   Bucket: s3Bucket,
-        //   Key: `compressed/${file.originalname}-${new Date().toISOString()}`,
-        //   Body: data,
-        //   ContentType: info.format,
-        //   ACL: 'public-read',
-        // }
         const buffer = fs.readFileSync(file.path)
         const s3Params = {
           Bucket: s3Bucket,
