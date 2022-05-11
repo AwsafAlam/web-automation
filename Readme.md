@@ -75,11 +75,12 @@ We use a third party api `POST https://countriesnow.space/api/v0.1/countries/sta
 **Requests:**
 
 - `POST /v1/requests` - adds a request to the db for scraping.
+- `GET /v1/requests` - get all request
 
 **Listings**
 
 - `GET /v1/listings` - get all listings
-- `GET /v1/listings` - get all listings
+- `GET /v1/listings/:slug` - get listing by slug
 - `POST /v1/listings/images` - upload images
 - `POST /v1/listings/search` - returns the partial name, state or cities which match with the user input
 
@@ -87,7 +88,11 @@ Private Routes (Only accessible inside the network/VPC)
 
 - `GET /private/requests/uncrawled` - Gets one uncrawled request
 - `PUT /private/requests/:id` - update request by id
+- `GET /private/requests/:id` - get request by id
+
+- `POST /private/listings/` - insert listing
 - `POST /private/listings/multiple` - insert multiple listings
+- `PUT /private/listings/:id` - update listing by `govSiteId`
 
 #### Api Design Considerations
 
