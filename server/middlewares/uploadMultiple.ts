@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { config as awsConfig, S3 } from 'aws-sdk'
+// import sharp from 'sharp'
 import fs from 'fs'
 
 import config from 'config'
@@ -39,7 +40,6 @@ const uploadMultipleImages = async (
     if (s3Bucket) {
       for (const file of files) {
         const buffer = fs.readFileSync(file.path)
-
         const s3Params = {
           Bucket: s3Bucket,
           Key: `original/${file.originalname}-${new Date().toISOString()}`,
