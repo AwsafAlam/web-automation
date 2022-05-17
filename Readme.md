@@ -28,6 +28,9 @@ Users can also view the different facility details. They can upload images of th
 
 Live Demo: [Link](https://react-mui-search.vercel.app/)
 
+> The backend server is turned off for now. You will need to clone the repo and deploy the server inorder to preview.
+
+
 ![Website](documentation/diagrams/web-page-1.png?raw=true 'Website')
 
 ## Technologies Used:
