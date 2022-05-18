@@ -13,17 +13,17 @@ export default {
   },
   mysql: {
     database: process.env.DB_NAME || 'boomershub',
-    username: process.env.DB_USERNAME || 'root',
+    username: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '',
   },
   token: {
     access: {
-      secret: 'secret',
-      expiresIn: '15 days',
+      secret: process.env.ACCESS_TOKEN_SECRET || 'secret',
+      expiresIn: process.env.ACCESS_TOKEN_LIFE || '15 days',
     },
     refresh: {
-      secret: 'secret',
-      expiresIn: '90 days',
+      secret: process.env.REFRESH_TOKEN_SECRET || 'secret',
+      expiresIn: process.env.REFRESH_TOKEN_LIFE || '90 days',
     },
   },
 }
